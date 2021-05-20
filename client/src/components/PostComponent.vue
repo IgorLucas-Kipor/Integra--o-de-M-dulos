@@ -1,15 +1,20 @@
 <template>
   <div class="container">
       <div class="posts-container">
+        <div class="create-post">
+          <label for="create-post">Deixe aqui seu comentário...</label>
+          <input type="text" id="create-post" v-model="text">
+          <button @click="createPost">Postar</button>
+        </div>
         <div class="post"
         v-bind:item="post"
         v-bind:index="index"
         v-bind:key="post._id"
+        @dblclick="deletePost(post._id)"
         v-for="(post, index) in posts">
           <div class="created-at">
-          {{`${post.createdAt.getDate()}/${post.createdAt.getMonth()}/${post.createdAt.getFullYear()}`}}
+          {{`${post.createdAt.getDate()}/${post.createdAt.getMonth()}/${post.createdAt.getFullYear()}`}}</div>
           <p class="text">{{post.text}}</p>
-          </div>
         </div>
       </div>
   </div>
@@ -45,6 +50,14 @@ export default {
         }))
       })
       .catch(err => (this.error = err.message))
+    },
+    createPost() {
+      axios.post(url, {text: this.text});
+      this.getPosts();
+    },
+    deletePost(id) {
+      axios.delete(url+id);
+      this.getPosts();
     }
   }
 }
