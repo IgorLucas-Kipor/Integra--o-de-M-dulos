@@ -4,7 +4,7 @@
         <div class="create-post">
           <label for="create-post">Deixe aqui seu comentário...</label>
           <input type="text" id="create-post" v-model="text">
-          <button @click="createPost">Postar</button>
+          <button @click="createPost()">Postar</button>
         </div>
         <div class="post"
         v-bind:item="post"
@@ -23,7 +23,7 @@
 <script>
 import axios from 'axios';
 
-const url = 'localhost:5000/api/posts/';
+const url = 'http://localhost:5000/api/posts/';
 
 
 export default {
